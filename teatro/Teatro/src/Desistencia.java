@@ -9,7 +9,7 @@ public class Desistencia {
     static Date dataHoraAtual = new Date();
     static String data_desistencia = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
     static String hora_desistencia = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
-
+    public static int opcao = 0;
 
     public static void LogDesistencia() { // PRINTA o LOG de desistencia
         for (int i = 0; i < auxiliar; i++) {
@@ -19,9 +19,6 @@ public class Desistencia {
     }
 
     public static void Desistencia() {
-        int opcao = 0;
-        Scanner scanner = new Scanner(System.in);
-
 
         do {
 
@@ -29,8 +26,8 @@ public class Desistencia {
             System.out.println("2- Segundo andar");
             System.out.println("3- Terceiro andar");
             System.out.println("0- Voltar");
-            opcao = scanner.nextInt();  // ENTRADA DE DADOS DO USUARIO
 
+            Try();             // CHAMA FUNÇÃO DE VERIFICAR SE É UM INTEIRO UM UMA STRING
 
             if (opcao == 1) {
                 Desistir(opcao);
@@ -41,7 +38,8 @@ public class Desistencia {
                 Desistir(opcao);
 
             } else {
-                System.out.println("erro"); // SE NÃO FOR NENHUMA DAS OPÇÕES ACIMA ELE DÁ ERRO!
+                System.out.println("ERRO O ANDAR ESTÁ INVALIDO"); // SE NÃO FOR NENHUMA DAS OPÇÕES ACIMA ELE DÁ ERRO!
+                Erros.AndarInvalido();
                 return;
             }
 
@@ -51,9 +49,8 @@ public class Desistencia {
 
     public static void Desistir(int reembolso) {
         int andarusuario[][];
-        Scanner scanner = new Scanner(System.in);
         int contador = 0;
-        int cadeira;
+
 
         if (reembolso == 1) {
             andarusuario = Andares.PrimeiroAndar;
@@ -62,22 +59,25 @@ public class Desistencia {
         } else if (reembolso == 3) {
             andarusuario = Andares.TerceiroAndar;
         } else {
-            System.out.println("Erro");
+            System.out.println("Erro ANDAR INVALIDO");
+            Erros.AndarInvalido();
             return;
         }
 
         System.out.println("Selecione a cadeira que você deseja reembolsar");
 
-        cadeira = scanner.nextInt();                        // ENTRADA DE DADOS DA CADEIRA QUE O USUARIO QUISER REEMBOLSAR!
+        Try();          // CHAMA FUNÇÃO DE VERIFICAR SE É UM INTEIRO UM UMA STRING
+
         for (int i = 0; i < andarusuario.length; i++) {
             for (int j = 0; j < andarusuario[i].length; j++) {  // LAÇO DE REPETIÇÃO PARA PERCORRER O VETOR
                 contador++;
-                if (contador == cadeira) { // VERIFICA SE EXISTE A CADEIRA
+                if (contador == opcao) { // VERIFICA SE EXISTE A CADEIRA
 
                     if (andarusuario[i][j] == 0) { //  SE A CADEIRA ESTIVER VAZIA, DEIXA O USUARIO EFETUAR O REEMBOLSO
-                        andarusuario[i][j] = cadeira; // DEVOLVE A CADEIRA QUE O USUARIO REEMBOLSOU PARA A POSIÇÃO NA MATRIZ
-                        desistir[auxiliar] = "a cadeira numero " + cadeira + " do andar " + reembolso + " foi reembolsada no dia " + data_desistencia + "no horario " + hora_desistencia;
+                        andarusuario[i][j] = opcao; // DEVOLVE A CADEIRA QUE O USUARIO REEMBOLSOU PARA A POSIÇÃO NA MATRIZ
+                        desistir[auxiliar] = "a cadeira numero " + opcao + " do andar " + reembolso + " foi reembolsada no dia " + data_desistencia + "no horario " + hora_desistencia;
                         auxiliar++;
+                        System.out.println("Cadeira reembolsada com sucesso");
                         return;
 
                     } else { // SE A CADEIRA NÃO ESTIVER LIVRE, ELE ENTRARÁ NESSA LINHA DE CÓDIGO
@@ -91,5 +91,20 @@ public class Desistencia {
             }
 
         }
+    }
+
+    public static void Try() {
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+
+            if (scanner.hasNextInt()) {
+                opcao = scanner.nextInt();
+                break;
+            } else {
+                scanner.nextLine();
+            }
+        }
+
     }
 }

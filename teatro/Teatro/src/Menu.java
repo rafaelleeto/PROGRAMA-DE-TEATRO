@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class Menu {
-    public static void Menu() {
+    static Scanner scanner = new Scanner(System.in);
+    static int opcao = 0;
 
-        Scanner scanner = new Scanner(System.in);
-        int opcao;
+    public static void Menu() {
 
 
         do {
@@ -15,7 +15,8 @@ public class Menu {
             System.out.println("3- Mostrar os andares do teatro");
             System.out.println("4- Lista de logs");
             System.out.println("0- Sair do Programa");
-            opcao = scanner.nextInt(); // Usuario faz a entrada de dados da opção
+
+            Try();          // CHAMA FUNÇÃO DE VERIFICAR SE É UM INTEIRO UM UMA STRING
 
             if (opcao == 1) {
                 Vendas.Vendas(); // Se 1- ENTRA NA OPÇÃO DE COMPRAR CADEIRA
@@ -35,4 +36,28 @@ public class Menu {
         Log.Log();
 
     }
+
+
+    public static void Try() {
+
+        Scanner scanner = new Scanner(System.in);
+        scanner.hasNextLine();
+        while (true) {
+
+            if (scanner.hasNextInt()) {
+                opcao = scanner.nextInt();
+                break;
+            } else {
+                System.out.println("VOCE DIGITOU UM NUMERO INVALIDO NO MENU, DIGITE OUTRO");
+                scanner.next();
+            }
+        }
+
+    }
 }
+
+
+
+
+
+

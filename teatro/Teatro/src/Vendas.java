@@ -6,6 +6,7 @@ public class Vendas {
     static Date dataHoraAtual = new Date();
     static String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
     static String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
+    static int opcao = 0;
 
 
     static String[] hora_todos = new String[100];
@@ -17,9 +18,20 @@ public class Vendas {
         int contador = 0;
         int andarusuario[][];
         int compra;
-        Scanner scanner = new Scanner(System.in);
-        compra = scanner.nextInt(); // Entrada de dados da cadeira que o usuario deseja
 
+
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+
+            if (scanner.hasNextInt()) {
+                compra = scanner.nextInt();
+                break;
+            } else {
+                System.out.println("ANDAR INVALIDO, SELECIONE UM ANDAR ");
+                scanner.next();
+                hora_todos[auxiliar] = ("ERR0035 na data " + data + " no horário " + hora);
+            }
+        }
 
         if (andar == 1) { // Vetor do andar recebe o numero do andar
             andarusuario = Andares.PrimeiroAndar;
@@ -64,10 +76,8 @@ public class Vendas {
 
     public static void Vendas() {
 
-        int opcao = 0;
 
         do {
-            Scanner scanner = new Scanner(System.in);
 
             System.out.println("Bem vindo ao MENU de vendas"); // MENU DE ANDARES
             System.out.println("1- Selecione o primeiro   para comprar");
@@ -75,8 +85,8 @@ public class Vendas {
             System.out.println("3- Selecione o terceiro   para comprar");
             System.out.println("0- Voltar");
 
-            opcao = scanner.nextInt(); // ENTRADA DO ANDAR
 
+            Try(); // CHAMA FUNÇÃO DE VERIFICAR SE É UM INTEIRO UM UMA STRING
 
             if (opcao >= 1 && opcao <= 3) {
                 Andares.MostrarAndar(opcao);
@@ -90,4 +100,23 @@ public class Vendas {
 
 
     }
+
+    public static void Try() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+
+            if (scanner.hasNextInt()) {
+                opcao = scanner.nextInt();
+                break;
+            } else {
+                System.out.println("Erro: Por favor, insira um número inteiro.");
+                scanner.next();
+            }
+        }
+
+    }
+
+
 }
