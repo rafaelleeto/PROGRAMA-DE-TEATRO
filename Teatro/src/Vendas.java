@@ -32,6 +32,7 @@ public class Vendas {
                 hora_todos[auxiliar] = ("ERR0035 na data " + data + " no horário " + hora);
             }
         }
+
         Pagamento.Pagamento();
 
         if (andar == 1) { // Vetor do andar recebe o numero do andar
@@ -56,6 +57,22 @@ public class Vendas {
                         andarusuario[i][j] = 0;   // posição recebe ZERO, ou seja uma cadeira já vazia
                         Vendas.hora_todos[auxiliar] = "a cadeira numero " + compra + " do andar " + andar + " foi vendida no dia " + data + "no horario " + hora;
                         auxiliar++;
+                        if (Pagamento.opcao==1){
+                            Pagamento.LogDinheiro[Pagamento.dinheiro]=new Ingresso(compra,andar,"pix");
+                            Pagamento.dinheiro++;
+                        }
+                        else if (Pagamento.opcao==2){
+                            Pagamento.LogDinheiro[Pagamento.dinheiro]=new Ingresso(compra,andar,"cartão de debito");
+                            Pagamento.dinheiro++;
+                        }
+                        else if (Pagamento.opcao==3){
+                            Pagamento.LogDinheiro[Pagamento.dinheiro]=new Ingresso(compra,andar,"cartão de crédito");
+                            Pagamento.dinheiro++;
+                        }
+                        else if (Pagamento.opcao==4){
+                            Pagamento.LogDinheiro[Pagamento.dinheiro]=new Ingresso(compra,andar,"dinheiro físico");
+                            Pagamento.dinheiro++;
+                        }
                         return;
 
                     } else if (compra != andarusuario[i][j]) { // Verifica se a cadeira está disponível na matriz

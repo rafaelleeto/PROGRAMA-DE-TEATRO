@@ -6,7 +6,7 @@ public class Pagamento {
     static int auxiliar = 0;
     static int[] Dinheiro = new int[100];
     static int total = 0;
-    static String[] LogDinheiro = new String[100];
+    static Ingresso[] LogDinheiro = new Ingresso[100];
     static int dinheiro = 0;
 
     public static void Pagamento() {
@@ -14,7 +14,6 @@ public class Pagamento {
         do {
             System.out.println("Selecione sua forma de pagamento");
             System.out.println("Valor unitário de 20 reais");
-            System.out.println(" ");
             System.out.println("1- PIX");
             System.out.println("2- Cartão de débito");
             System.out.println("3- Cartão de crédito");
@@ -24,15 +23,19 @@ public class Pagamento {
 
             if (opcao == 1) {
                 Pix();
+                return;
 
             } else if (opcao == 2) {
                 CartaoDeDebito();
+                return;
 
             } else if (opcao == 3) {
                 CartaoDeCredito();
+                return;
 
             } else if (opcao == 4) {
                 DinheiroFisico();
+                return;
 
             }
 
@@ -43,15 +46,13 @@ public class Pagamento {
         Scanner scanner = new Scanner(System.in);
         String QR;
         System.out.println("Escaneie o QRCODE");
-        System.out.println("ABC");
+        System.out.println("digite ABC para continuar");
         QR = scanner.nextLine();
 
         if (Objects.equals(QR, "ABC")) {
             System.out.println("Pagamento efetuado com sucesso");
             Dinheiro[auxiliar] = 20;
             auxiliar++;
-            LogDinheiro[dinheiro] = "Usando o PIX";
-            dinheiro++;
 
         } else {
             System.out.println("Forma de pagamento inválida, tente novamente");
@@ -69,6 +70,7 @@ public class Pagamento {
         int DinheiroFisico;
         Scanner scanner = new Scanner(System.in);
         System.out.println("o ingresso custa 20 reais");
+        System.out.println("Por favor me dê o dinheiro.");
         DinheiroFisico = scanner.nextInt();
 
         if (DinheiroFisico >= 20) {
@@ -82,8 +84,7 @@ public class Pagamento {
             total = total - troco;
             total = total + 20;
             System.out.println("Foi devolvido um troco de " + troco);
-            LogDinheiro[dinheiro] = "Usando Dinheiro Físico";
-            dinheiro++;
+
 
         } else {
 
@@ -97,14 +98,14 @@ public class Pagamento {
     public static void CartaoDeCredito() {
         String senha;
         System.out.println("Digite sua senha");
+        System.out.println("PROFESSOR A SENHA É 2805");
         Scanner scanner = new Scanner(System.in);
         senha = scanner.nextLine();
         if (Objects.equals(senha, "2805")) {
             System.out.println("Pagamento efetuado");
             Dinheiro[auxiliar] = 20;
             auxiliar++;
-            LogDinheiro[dinheiro] = "Usando o Cartão de Crédito";
-            dinheiro++;
+
 
         } else {
             System.out.println("Cartao recusado, senha inválida");
@@ -116,14 +117,14 @@ public class Pagamento {
     public static void CartaoDeDebito() {
         String senha;
         System.out.println("Digite sua senha");
+        System.out.println("PROFESSOR A SENHA É 2805");
         Scanner scanner = new Scanner(System.in);
         senha = scanner.nextLine();
         if (Objects.equals(senha, "2805")) {
             System.out.println("Pagamento efetuado");
             Dinheiro[auxiliar] = 20;
             auxiliar++;
-            LogDinheiro[dinheiro] = "Usando o Cartão de Débito";
-            dinheiro++;
+
 
         } else {
             System.out.println("Cartao recusado, senha inválida");

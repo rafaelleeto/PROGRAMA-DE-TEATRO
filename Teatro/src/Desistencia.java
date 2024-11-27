@@ -47,16 +47,16 @@ public class Desistencia {
         } while (opcao != 0);
     }
 
-    public static void Desistir(int reembolso) {
+    public static void Desistir(int andar) {
         int andarusuario[][];
         int contador = 0;
 
 
-        if (reembolso == 1) {
+        if (andar == 1) {
             andarusuario = Andares.PrimeiroAndar;
-        } else if (reembolso == 2) {
+        } else if (andar == 2) {
             andarusuario = Andares.SegundoAndar;
-        } else if (reembolso == 3) {
+        } else if (andar == 3) {
             andarusuario = Andares.TerceiroAndar;
         } else {
             System.out.println("Erro ANDAR INVALIDO");
@@ -75,13 +75,17 @@ public class Desistencia {
 
                     if (andarusuario[i][j] == 0) { //  SE A CADEIRA ESTIVER VAZIA, DEIXA O USUARIO EFETUAR O REEMBOLSO
                         andarusuario[i][j] = opcao; // DEVOLVE A CADEIRA QUE O USUARIO REEMBOLSOU PARA A POSIÇÃO NA MATRIZ
-                        desistir[auxiliar] = "a cadeira numero " + opcao + " do andar " + reembolso + " foi reembolsada no dia " + data_desistencia + "no horario " + hora_desistencia;
+                        desistir[auxiliar] = "a cadeira numero " + opcao + " do andar " + andar + " foi reembolsada no dia " + data_desistencia + "no horario " + hora_desistencia;
                         auxiliar++;
-                        System.out.println("Cadeira reembolsada com sucesso, foi extornado para você um valor total de 20 reais no");
-                        Pagamento.Dinheiro[Pagamento.auxiliar] = -20;
-                        Pagamento.auxiliar--;
-                        return;
 
+                        for (int k = 0; k < Pagamento.dinheiro; k++) {
+                            if (Pagamento.LogDinheiro[k].cadeira==opcao && Pagamento.LogDinheiro[k].andar==andar){
+                                System.out.println("Cadeira reembolsada com sucesso, foi extornado para você um valor total de 20 reais no "+Pagamento.LogDinheiro[k].formaDePagamento);
+                                Pagamento.Dinheiro[Pagamento.auxiliar] = -20;
+                                Pagamento.auxiliar--;
+                                return;
+                            }
+                        }
                     } else { // SE A CADEIRA NÃO ESTIVER LIVRE, ELE ENTRARÁ NESSA LINHA DE CÓDIGO
                         System.out.println("Voce esta tentando reembolsar de uma cadeira livre");
                         Erros.CadeiraLivre(); //
